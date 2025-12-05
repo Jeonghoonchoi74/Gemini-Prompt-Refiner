@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini Prompt Refiner</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Prompt Refiner</h1>
+      <button id="settingsBtn" class="icon-btn" title="설정">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24.5 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-31 5-61t-5-61l86-65-39-68-99 41q-26-23-52.5-38.5T533-694l-14-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 31-5 61t5 61l-86 65 39 68 99-41q26 23 52.5 38.5T427-266l14 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm0-140Z"/></svg>
+      </button>
+    </header>
+
+    <div id="settingsPanel" class="panel hidden">
+      <div class="input-group">
+        <label for="apiKey">Gemini API Key</label>
+        <input type="password" id="apiKey" placeholder="AIzaSy...">
+        <p class="help-text"><a href="https://aistudio.google.com/app/apikey" target="_blank">Get API Key</a></p>
+      </div>
+      <button id="saveKeyBtn" class="secondary-btn">저장</button>
+    </div>
+
+    <div class="main-content">
+      <div class="input-section">
+        <label for="userPrompt">나의 아이디어 (자연어)</label>
+        <textarea id="userPrompt" placeholder="예: 파이썬으로 뱀 게임 만들어줘, 점수 기능 포함해서..."></textarea>
+      </div>
+
+      <div class="action-section">
+        <button id="refineBtn" class="primary-btn">
+          ✨ 프롬프트 정제하기
+          <span class="loader hidden"></span>
+        </button>
+      </div>
+
+      <div class="output-section">
+        <label for="refinedPrompt">정제된 프롬프트 (수정 가능)</label>
+        <textarea id="refinedPrompt" placeholder="여기에 정제된 프롬프트가 나타납니다."></textarea>
+        <div class="output-actions">
+           <button id="copyBtn" class="outline-btn">복사</button>
+           <button id="useBtn" class="outline-btn">사용 (Coming Soon)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

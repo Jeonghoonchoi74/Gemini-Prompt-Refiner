@@ -1,0 +1,187 @@
+/* content.css - Injected Styles */
+
+/* Floating Button */
+#gemini-floating-btn {
+    position: absolute;
+    z-index: 2147483647;
+    /* Standard Max Z-Index */
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #4F46E5 !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px !important;
+    transition: transform 0.1s;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+}
+
+#gemini-floating-btn:hover {
+    transform: scale(1.1);
+    background-color: #4338ca !important;
+}
+
+/* Draggable Modal Container - NO OVERLAY */
+#gemini-refiner-modal {
+    position: fixed;
+    /* Fixed to viewport so it floats */
+    top: 100px;
+    /* Default, will be overridden by JS */
+    left: 100px;
+    width: auto;
+    height: auto;
+    z-index: 2147483647;
+    display: block;
+    /* Hidden by default via inline style */
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    pointer-events: auto;
+    filter: drop-shadow(0 20px 13px rgba(0, 0, 0, 0.03)) drop-shadow(0 8px 5px rgba(0, 0, 0, 0.08));
+    box-sizing: border-box !important;
+}
+
+/* Modal Content */
+.gemini-modal-content {
+    background: #FFFFFF !important;
+    color: #1F2937 !important;
+    width: 380px !important;
+    /* Slightly smaller */
+    border-radius: 12px !important;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: left !important;
+    border: 1px solid #E5E7EB;
+    box-sizing: border-box !important;
+}
+
+.gemini-modal-content * {
+    box-sizing: border-box !important;
+}
+
+.gemini-modal-content header {
+    padding: 12px 16px !important;
+    border-bottom: 1px solid #E5E7EB !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F3F4F6 !important;
+    cursor: grab;
+    /* Indicates draggable */
+    user-select: none;
+    min-height: 48px;
+}
+
+.gemini-modal-content header:active {
+    cursor: grabbing;
+}
+
+.gemini-modal-content header h3 {
+    margin: 0 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #374151 !important;
+}
+
+.gemini-modal-content header button {
+    background: none !important;
+    border: none !important;
+    font-size: 18px !important;
+    cursor: pointer;
+    color: #9CA3AF !important;
+    padding: 4px !important;
+    line-height: 1 !important;
+}
+
+.gemini-modal-content header button:hover {
+    color: #4B5563 !important;
+}
+
+.gemini-body {
+    padding: 16px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 10px !important;
+    background-color: #FFFFFF !important;
+    width: 100% !important;
+}
+
+.gemini-body label {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #6B7280 !important;
+    margin-bottom: 2px;
+    display: block;
+}
+
+.gemini-body textarea,
+.gemini-body input {
+    width: 100% !important;
+    padding: 8px 10px !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    background-color: #FFFFFF !important;
+    color: #1F2937 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+.gemini-body textarea {
+    min-height: 80px !important;
+    /* Slightly taller */
+    resize: vertical;
+}
+
+.gemini-body button#gemini-refine-btn {
+    background-color: #4F46E5 !important;
+    color: white !important;
+    padding: 10px !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gemini-body button#gemini-refine-btn:hover {
+    background-color: #4338ca !important;
+}
+
+.gemini-actions {
+    display: flex;
+    gap: 8px !important;
+}
+
+.gemini-actions button {
+    flex: 1;
+    padding: 8px !important;
+    border: 1px solid #D1D5DB !important;
+    background: white !important;
+    color: #374151 !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+.gemini-actions button:hover {
+    background-color: #F9FAFB !important;
+}
+
+.gemini-actions button#gemini-insert-btn {
+    /* Make insert button primary-ish since copy is gone, or keep simple? Let's keep simple but distinctive */
+    background-color: white !important;
+    border-color: #E5E7EB !important;
+    color: #374151 !important;
+}

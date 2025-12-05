@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "Gemini 프롬프트 개선",
+    "version": "2.0",
+    "description": "Gemini 프롬프트 개선",
+    "permissions": [
+        "storage"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://gemini.google.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "styles.css"
+            ]
+        }
+    ],
+    "host_permissions": [
+        "https://generativelanguage.googleapis.com/*"
+    ]
+}
