@@ -46,12 +46,12 @@
     box-sizing: border-box !important;
 }
 
-/* Modal Content */
+/* Modal Content - Fixed Size (Reverted) */
 .gemini-modal-content {
     background: #FFFFFF !important;
     color: #1F2937 !important;
     width: 380px !important;
-    /* Slightly smaller */
+    /* Fixed width */
     border-radius: 12px !important;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
     overflow: hidden;
@@ -104,6 +104,15 @@
     color: #4B5563 !important;
 }
 
+/* Slider */
+#gemini-opacity-slider {
+    width: 70px !important;
+    height: 4px !important;
+    accent-color: #4F46E5 !important;
+    cursor: pointer;
+    margin-right: 12px;
+}
+
 .gemini-body {
     padding: 16px !important;
     display: flex;
@@ -122,7 +131,8 @@
 }
 
 .gemini-body textarea,
-.gemini-body input {
+.gemini-body input[type="text"],
+.gemini-body input[type="password"] {
     width: 100% !important;
     padding: 8px 10px !important;
     border: 1px solid #E5E7EB !important;
@@ -136,8 +146,12 @@
 
 .gemini-body textarea {
     min-height: 80px !important;
-    /* Slightly taller */
     resize: vertical;
+}
+
+/* User requested larger result area */
+#gemini-result-prompt {
+    min-height: 150px !important;
 }
 
 .gemini-body button#gemini-refine-btn {
@@ -180,8 +194,30 @@
 }
 
 .gemini-actions button#gemini-insert-btn {
-    /* Make insert button primary-ish since copy is gone, or keep simple? Let's keep simple but distinctive */
     background-color: white !important;
     border-color: #E5E7EB !important;
     color: #374151 !important;
+}
+
+/* Chip Buttons */
+.gemini-chips {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.gemini-chip-btn {
+    padding: 4px 8px !important;
+    background-color: #EEF2FF !important;
+    color: #4F46E5 !important;
+    border: 1px solid #C7D2FE !important;
+    border-radius: 12px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.gemini-chip-btn:hover {
+    background-color: #E0E7FF !important;
 }

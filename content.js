@@ -32,7 +32,10 @@ function createModal() {
     <div class="gemini-modal-content">
       <header id="gemini-drag-handle" title="드래그해서 이동">
         <h3>프롬프트 도우미</h3>
-        <button id="gemini-close-btn" title="닫기">✕</button>
+        <div style="display:flex; align-items:center;">
+            <input type="range" id="gemini-opacity-slider" min="0.2" max="1" step="0.1" value="1" title="투명도 조절">
+            <button id="gemini-close-btn" title="닫기">✕</button>
+        </div>
       </header>
       <div class="gemini-body">
         <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -45,7 +48,15 @@ function createModal() {
             <p style="font-size:10px; color:#9CA3AF; margin-top:4px;">* 키는 브라우저에만 안전하게 저장됩니다.</p>
         </div>
         
-        <label style="margin-top:10px;">나의 아이디어</label>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <label style="margin-top:10px; margin-bottom:6px;">나의 아이디어</label>
+            <div class="gemini-chips">
+                <button class="gemini-chip-btn" data-insert="[역할]: ">+ 역할</button>
+                <button class="gemini-chip-btn" data-insert="[목표]: ">+ 목표</button>
+                <button class="gemini-chip-btn" data-insert="[분량]: ">+ 분량</button>
+            </div>
+        </div>
+        
         <textarea id="gemini-user-prompt" placeholder="원하는 내용을 대략적으로 적어보세요..."></textarea>
         
         <button id="gemini-refine-btn">프롬프트 개선하기</button>
@@ -65,6 +76,37 @@ function createModal() {
 
     const header = modalContainer.querySelector('header');
     const closeBtn = modalContainer.querySelector('#gemini-close-btn');
+
+    // Slider Logic
+    const slider = modalContainer.querySelector('#gemini-opacity-slider');
+    slider.addEventListener('input', (e) => {
+        modalContainer.style.opacity = e.target.value;
+    });
+    slider.addEventListener('change', (e) => {
+        chrome.storage.local.set({ modalOpacity: e.target.value });
+    });
+    // Prevent Drag when using slider
+    slider.addEventListener('mousedown', (e) => e.stopPropagation());
+
+    // Chip Logic
+    const chips = modalContainer.querySelectorAll('.gemini-chip-btn');
+    const promptInput = modalContainer.querySelector('#gemini-user-prompt');
+
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const textToInsert = chip.getAttribute('data-insert');
+            const cursorPosition = promptInput.selectionStart;
+            const currentText = promptInput.value;
+
+            const newText = currentText.slice(0, cursorPosition) +
+                (cursorPosition > 0 && currentText[cursorPosition - 1] !== '\n' ? '\n' : '') +
+                textToInsert +
+                currentText.slice(cursorPosition);
+
+            promptInput.value = newText;
+            promptInput.focus();
+        });
+    });
 
     // Toggle API Key Field
     modalContainer.querySelector('#gemini-edit-key-btn').addEventListener('click', () => {
@@ -136,7 +178,6 @@ function createModal() {
     modalContainer.querySelector('#gemini-insert-btn').addEventListener('click', async () => {
         const text = modalContainer.querySelector('#gemini-result-prompt').value;
 
-        // Auto-copy when inserting, even if button is gone, is good practice but mainly we insert
         try {
             await navigator.clipboard.writeText(text);
         } catch (e) { }
@@ -251,11 +292,18 @@ function toggleModal() {
 
     if (modal.style.display === 'none') {
         // OPEN
-        modal.style.opacity = '0';
-        modal.style.display = 'block';
 
         // CHECK API KEY & Hide Input if exists
-        chrome.storage.local.get(['modalPosition', 'geminiApiKey'], (res) => {
+        chrome.storage.local.get(['modalPosition', 'geminiApiKey', 'modalOpacity'], (res) => {
+            // LOAD OPACITY
+            let initialOpacity = '1';
+            if (res.modalOpacity) {
+                initialOpacity = res.modalOpacity;
+                modal.querySelector('#gemini-opacity-slider').value = res.modalOpacity;
+            }
+            modal.style.opacity = initialOpacity;
+            modal.style.display = 'block';
+
             // UI Logic for Key
             const keyContainer = modal.querySelector('#gemini-api-key-container');
             const keyInput = modal.querySelector('#gemini-api-key');
@@ -292,8 +340,6 @@ function toggleModal() {
                 modal.style.top = `${newTop}px`;
                 modal.style.left = `${newLeft}px`;
             }
-
-            modal.style.opacity = '1';
         });
 
         const promptInput = modal.querySelector('#gemini-user-prompt');
